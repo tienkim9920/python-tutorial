@@ -23,17 +23,26 @@
       <div class="p-5 bg-gray-100 overflow-y-auto flex-1">
         <!-- LIST EMAIL -->
         {% for email in emails %}
-          <div
-            class="bg-white border border-gray-300 p-3 mb-3 rounded-md flex justify-between"
-          >
-            <div class="max-w-[70%]">
-              <div class="font-bold">{{ email.title }}</div>
-              <div class="text-gray-800">{{ email.description }}</div>
+        <div
+          class="bg-white border border-gray-300 p-3 mb-3 rounded-md flex justify-between"
+        >
+          <div class="max-w-[70%]">
+            <div class="font-bold">{{ email.title }}</div>
+            <div class="text-gray-800">{{ email.description }}</div>
+            <div class="text-gray-800">
+              {% if email.status %}
+              <div>Da xem</div>
+              {% else %}
+              <div>Chua xem</div>
+              {% endif %}
             </div>
-            <div class="text-sm text-gray-500">{{ email.time }}</div>
           </div>
+          <div class="text-sm text-gray-500">{{ email.time }}</div>
+        </div>
         {% endfor %}
       </div>
     </div>
   </body>
 </html>
+
+<!-- https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/pagination -->
