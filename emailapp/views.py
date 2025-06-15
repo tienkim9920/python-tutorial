@@ -1,10 +1,11 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .email import get_Email_list, get_Email_by_id, delete_Email_by_id
+from .models import Email
 
 def home(request):
   query = request.GET.get('q')
-  emails = get_Email_list()
+  emails = Email.objects.all()
 
   if query:
     emails = [email for email in emails if query.lower() in email.title.lower()]
@@ -12,7 +13,7 @@ def home(request):
   return render(request, 'home.html', { 'emails': emails })
 
 def detail_email(request, id):
-  email = get_Email_by_id(id)
+  email = Email.objects.get(id=id)
   return render(request, 'detail_email.html', { 'email': email })
 
 def search_email(request):
@@ -24,7 +25,9 @@ def search_email(request):
     'page': page
   })
 
-def delete_email(request, pk):
+def delete_email(request, id):
   if request.method == 'POST':
-    delete_Email_by_id(pk)
+    email = Email.objects.get(id=id)
+    email.delete()
+    print(f"Da xoa thanh cong")
   return redirect('home')
